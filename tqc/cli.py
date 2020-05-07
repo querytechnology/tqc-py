@@ -2,7 +2,9 @@ import os
 import json
 import random
 import requests
+import sys
 import yaml
+from colorama import init
 from zipfile import ZipFile
 
 DEFAULT_COMPILER = 'https://compile.tinyqueries.com'
@@ -105,7 +107,8 @@ def send_compile_request(config, api_key):
 
 def main():
     try:
-        print('TinyQueries')
+        init()
+        print('\033[1;33mTiny\033[1;37mQueries\033[0m')
         api_key = get_api_key()
         config = read_config()
         print("- project: " + config['project']['label'])
@@ -113,10 +116,8 @@ def main():
         print("- version: " + config['compiler']['version'])
         print("- input folder: " + config['compiler']['input'])
         send_compile_request(config, api_key)
-        print('Ready')
+        print('\033[1;37mReady\033[0m')
         exit(0)
     except Exception as err:
-        print(err)
+        print('\033[1;31m' + str(err) + '\033[0m')
         exit(1)
-
-main()
