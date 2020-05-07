@@ -1,8 +1,9 @@
 import os
 import json
-import requests
-from zipfile import ZipFile
 import random
+import requests
+import yaml
+from zipfile import ZipFile
 
 DEFAULT_COMPILER = 'https://compile.tinyqueries.com'
 POSSIBLE_CONFIG_FILE_NAMES = [
@@ -21,16 +22,14 @@ def read_config():
     for filename in POSSIBLE_CONFIG_FILE_NAMES:
         if os.path.exists(filename):
             fh = open(filename, "r")
-            content = fh.read()
-            if content is None:
-                raise Exception('Error reading config file ' + filename)
             _, file_extension = os.path.splitext(filename)
             if file_extension == '.json':
-                config = json.loads(content)
+                config = json.loads(fh.read())
             else:
-                print('todo')
+                config = yaml.load(fh, Loader=yaml.FullLoader)
             if config is None:
                 raise Exception('Error decoding config file ' + filename)
+            fh.close()
             standardize_config(config)
             config['filename'] = filename
             return config
@@ -104,7 +103,6 @@ def send_compile_request(config, api_key):
     zip.close()
     os.remove(zip_filename)
 
-
 def main():
     try:
         print('TinyQueries')
@@ -120,3 +118,5 @@ def main():
     except Exception as err:
         print(err)
         exit(1)
+
+main()
