@@ -1,0 +1,7 @@
+README.md
+setup.py
+bin/tqc
+tqc.egg-info/PKG-INFO
+tqc.egg-info/SOURCES.txt
+tqc.egg-info/dependency_links.txt
+tqc.egg-info/top_level.txt
