@@ -4,7 +4,8 @@ Command line interface written in Python for the TinyQueries&trade; Compiler
 
 ## Installation
 
-- Make sure you have an API key for the TinyQueries&trade; Compiler. You can get one here: https://tinyqueries.com/signup. You can choose to add `TINYQUERIES_API_KEY` to your ENV variables.
+- Make sure you have an API key for the TinyQueries&trade; Compiler - you can get one here: https://tinyqueries.com/signup.
+- Add the API key as `TINYQUERIES_API_KEY` to your ENV variables.
 - Make sure you have Python and pip installed
 - run `pip install tqc`
 
