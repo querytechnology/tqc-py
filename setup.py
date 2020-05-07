@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='tqc',
-    version='0.2',
+    version='0.2.1',
     entry_points = {
         'console_scripts': ['tqc=tqc.cli:main']
     },

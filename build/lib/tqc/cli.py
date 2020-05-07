@@ -1,8 +1,11 @@
 import os
 import json
-import requests
-from zipfile import ZipFile
 import random
+import requests
+import sys
+import yaml
+from colorama import init
+from zipfile import ZipFile
 
 DEFAULT_COMPILER = 'https://compile.tinyqueries.com'
 POSSIBLE_CONFIG_FILE_NAMES = [
@@ -21,16 +24,14 @@ def read_config():
     for filename in POSSIBLE_CONFIG_FILE_NAMES:
         if os.path.exists(filename):
             fh = open(filename, "r")
-            content = fh.read()
-            if content is None:
-                raise Exception('Error reading config file ' + filename)
             _, file_extension = os.path.splitext(filename)
             if file_extension == '.json':
-                config = json.loads(content)
+                config = json.loads(fh.read())
             else:
-                print('todo')
+                config = yaml.load(fh, Loader=yaml.FullLoader)
             if config is None:
                 raise Exception('Error decoding config file ' + filename)
+            fh.close()
             standardize_config(config)
             config['filename'] = filename
             return config
@@ -104,10 +105,10 @@ def send_compile_request(config, api_key):
     zip.close()
     os.remove(zip_filename)
 
-
 def main():
     try:
-        print('TinyQueries')
+        init()
+        print('\033[1;33mTiny\033[1;37mQueries\033[0m')
         api_key = get_api_key()
         config = read_config()
         print("- project: " + config['project']['label'])
@@ -115,8 +116,8 @@ def main():
         print("- version: " + config['compiler']['version'])
         print("- input folder: " + config['compiler']['input'])
         send_compile_request(config, api_key)
-        print('Ready')
+        print('\033[1;37mReady\033[0m')
         exit(0)
     except Exception as err:
-        print(err)
+        print('\033[1;31m' + str(err) + '\033[0m')
         exit(1)
