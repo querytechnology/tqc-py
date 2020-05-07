@@ -1,7 +1,9 @@
 README.md
 setup.py
-bin/tqc
+tqc/__init__.py
+tqc/cli.py
 tqc.egg-info/PKG-INFO
 tqc.egg-info/SOURCES.txt
 tqc.egg-info/dependency_links.txt
+tqc.egg-info/entry_points.txt
 tqc.egg-info/top_level.txt
