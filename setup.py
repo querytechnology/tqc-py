@@ -4,10 +4,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='tqc',
-    version='0.2.1',
+    version='0.2.2',
     entry_points = {
         'console_scripts': ['tqc=tqc.cli:main']
     },
+    install_requires=[
+        "requests",
+        "colorama"
+    ],
     author="Wouter Diesveld",
     author_email="wouter@querytechnology.com",
     description="Command line interface for the TinyQueries Compiler",
